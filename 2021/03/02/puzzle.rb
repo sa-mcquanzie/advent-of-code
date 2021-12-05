@@ -14,7 +14,7 @@ end
 def find_rating(rate_type, inputs, index = 0)
   return inputs.flatten.map(&:to_s).join.to_i(2) if inputs.size == 1
 
-  digit = rate(rate_type,inputs)[index]
+  digit = rate(rate_type, inputs)[index]
   new_inputs = inputs.select { |digits| digits[index] == digit }
   index += 1
 
