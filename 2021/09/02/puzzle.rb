@@ -55,4 +55,3 @@ lows.each.with_index do |coords, ind|
 end
 
 puts basin_sizes.max(3).inject(&:*)
-
