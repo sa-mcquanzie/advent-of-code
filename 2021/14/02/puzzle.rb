@@ -1,13 +1,9 @@
-INSERTIONS = 40
+RubyVM::InstructionSequence.compile_option = {
+  tailcall_optimization: true,
+  trace_instruction: false
+}
 
-def check_pair(segment, rules, frequencies, insertions)
-  return if insertions.zero?
-  return unless rules[segment]
-
-  frequencies[rules[segment]] += 1
-  check_pair([segment[0], rules[segment]].join, rules, frequencies, insertions - 1)
-  check_pair([rules[segment], segment[-1]].join, rules, frequencies, insertions - 1)
-end
+INSERTIONS = 10
 
 inputs = File.readlines('../inputs').map(&:chomp)
 template = inputs.first.chars
@@ -17,10 +13,21 @@ frequencies = all_chars.zip([0] * all_chars.size).to_h
 
 template.each { |char| frequencies[char] += 1 }
 
+def check_pair(segment, rules, frequencies, insertions)
+  insertion ||= rules[segment]
+
+  return if insertions.zero? || insertion.nil?
+
+  frequencies[insertion] += 1
+
+  check_pair("#{segment[0]}#{insertion}", rules, frequencies, insertions - 1)
+  check_pair("#{insertion}#{segment[-1]}", rules, frequencies, insertions - 1)
+end
+
 puts
 start = Time.now
 
-template.each_cons(2) { |pair| check_pair(pair.join, rules, frequencies, INSERTIONS) }
+template.each_cons(2) { |pair| check_pair(pair.join, rules, frequencies, INSERTIONS) if rules[pair.join] }
 
 puts frequencies
 
