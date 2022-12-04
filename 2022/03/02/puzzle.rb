@@ -14,4 +14,4 @@ p File.readlines('../inputs')
     }.map(&:to_set)
   }.map { |rucksack1, rucksack2, rucksack3|
     (rucksack1 & rucksack2 & rucksack3).to_a[0]
-  }.sum
+}.sum
