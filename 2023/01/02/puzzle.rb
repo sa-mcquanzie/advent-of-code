@@ -9,7 +9,7 @@ result = inputs.map do |line|
   digits = line.scan(regex)
     .flatten
     .reject(&:nil?)
-    .map { |str| english.include?(str) ? english_to_numbers[str] : str.to_i }
+    .map { |str| english.include? str ? english_to_numbers[str] : str.to_i }
 
   [digits.first, digits.last].join.to_i
 end.sum
