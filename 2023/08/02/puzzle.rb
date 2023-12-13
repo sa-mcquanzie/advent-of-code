@@ -27,6 +27,7 @@ def count_ghostly_steps(node)
   end
 
   @instructions.rewind
+  
   steps
 end
 
