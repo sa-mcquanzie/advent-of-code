@@ -14,4 +14,3 @@ p File.readlines('../inputs')
   .map { |arr| pyramid(arr) }
   .map { |arr| arr.reverse.map(&:first).reduce(0) { |sum, num| sum = num - sum } }
   .sum
-
